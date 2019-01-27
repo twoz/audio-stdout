@@ -1,0 +1,10 @@
+[package]
+name = "audio-stdout"
+version = "0.1.0"
+authors = ["Tomasz Wozniak <tomasz.wozn@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+portaudio = '*'
+libc = "0.2"
+clap = "~2.32"
