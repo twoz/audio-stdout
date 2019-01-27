@@ -29,7 +29,7 @@ fn get_arg<T: std::str::FromStr>(arg: &str, matches: &ArgMatches) -> Result<T, S
 }
 
 impl Args {
-    fn from_matches(matches : ArgMatches) -> Result<Args, String> {
+    fn from_matches(matches: ArgMatches) -> Result<Args, String> {
         Ok(Args {
             samplerate: match matches.is_present("sample-rate") {
                 true => Some(get_arg("sample-rate", &matches)?),
@@ -56,7 +56,7 @@ fn parse_args() -> Result<Args, String> {
     Args::from_matches(matches)
 }
 
-fn create_stream_settings<T>(device : (DeviceIndex, DeviceInfo), args : Args) -> InputStreamSettings<T> {
+fn create_stream_settings<T>(device: (DeviceIndex, DeviceInfo), args: Args) -> InputStreamSettings<T> {
     let (dev_idx, dev_info) = device;
     let parameters = StreamParameters::<T>::new(
         dev_idx,
@@ -75,9 +75,8 @@ fn to_bytes<T>(src: &[T]) -> &[u8] {
     unsafe { ::std::slice::from_raw_parts(src.as_ptr() as *const u8, src.len() * size_of::<T>()) }
 }
 
-fn run<T>(pa: &PortAudio, args : Args) -> Result<(), portaudio::Error>
+fn run<T>(pa: &PortAudio, args: Args) -> Result<(), portaudio::Error>
     where T: 'static + portaudio::Sample {
-
     let (sender, receiver) = std::sync::mpsc::channel();
     #[allow(unused)]
         let callback = move |InputStreamCallbackArgs { buffer, frames, flags, time }| {
